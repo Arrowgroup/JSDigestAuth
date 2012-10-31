@@ -8,10 +8,10 @@ Requirements:
  - Maven 3 or greather
  
 How to run:
-1) Open console (cmd in Windows)
-2) Navigate to project directory
-3) Execute:
-   maven tomcat:run
-4) Open browser 
-5) Open url: http://localhost:8080/restauth/resources/html/test.html
+ - Open console (cmd in Windows)
+ - Navigate to project directory
+ - Execute:
+    maven tomcat:run
+ - Open browser 
+ - Open url: http://localhost:8080/restauth/resources/html/test.html
  
