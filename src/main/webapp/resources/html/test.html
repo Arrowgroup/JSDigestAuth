@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head >
+		<title>Ajax test call</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <script type="text/javascript" src="../../resources/js/jquery.min.js" ></script>
+	    <script type="text/javascript" src="../../resources/js/jquery.class.min.js" ></script>
+	    <script type="text/javascript" src="../../resources/js/md5-min.js" ></script>
+	    <script type="text/javascript" src="../../resources/js/digest-auth.js" ></script>
+	    
+	    <script type="text/javascript">
+	   		var digestAuth = new pl.arrowgroup.DigestAuthentication(
+	   			{
+	   				onSuccess : function(response){
+	   					$("#response").html(response);
+	   				},
+	   				onFailure : function(response){
+	   					$("#response").html('Invalid credentials !!!');
+	   				},
+	   				cnonce : 'testCnonce'
+	   			}
+	   		);
+	   		function callREST(){
+	   			digestAuth.setCredentials($('#user').val(),$('#password').val());
+	   			digestAuth.call('/restauth/user/echo');
+	   		}
+	    </script>
+	</head>
+	<body>
+		<div>
+			<h3>Test example of Digest Authentication using Ajax request and Spring Security</h3> 			
+		</div>
+		<div>
+			<form >
+				<p>User <input id="user" type="text" value="marcin"></p>
+				<p>Password <input id="password" type="text" value="michalski"></p>
+				<p> <button onclick="callREST(); return false;" >Execute</button>			
+			</form>
+		</div>
+		<div id="response">
+		</div>
+		<div style="color: gray; font-size: 12px;">
+		Copyright 2012: <a href="http://arrowgroup.eu">ArrowGroup</a>, Author: <a href="http://marcin-michalski.pl">Marcin Michalski</a> 
+		</div>
+	</body>
+</html>

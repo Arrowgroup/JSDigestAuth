@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+				http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+   <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
+   
+   <security:http pattern="/resources/**" security="none"/>
+   <security:http pattern="/guest/**" security="none"/>
+
+   <security:http 
+                 entry-point-ref="digestEntryPoint" >
+	  <security:custom-filter ref="digestFilter" position="BASIC_AUTH_FILTER"/>
+      <security:intercept-url pattern="/user/**" access="ROLE_USER"/>
+   </security:http>
+
+
+	<bean id="digestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+	  <property name="userDetailsService" ref="inMemoryUserService"/>
+	  <property name="authenticationEntryPoint" ref="digestEntryPoint"/>
+	</bean>
+	<bean id="digestEntryPoint" class="pl.arrowgroup.restauth.security.AjaxDigestAuthenticationEntryPoint">
+		  <property name="realmName" value="REST-Realm"/>
+		  <property name="key" value="testNonce"/>
+		  <property name="nonceValiditySeconds" value="10000"/>
+	</bean>
+
+
+   <security:authentication-manager alias="authenticationManager">
+      <security:authentication-provider ref="inMemoryAuthenticationProvider"/>
+   </security:authentication-manager>
+</beans>
