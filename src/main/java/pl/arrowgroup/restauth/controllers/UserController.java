@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserController {
 	@RequestMapping(value="/echo")
-	public @ResponseBody String shopProducts(HttpServletRequest request, HttpServletResponse resp){ 
+	public @ResponseBody String echo(HttpServletRequest request, HttpServletResponse resp){ 
 		return "Hello "+((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()+" - Current Date is : "+new Date() +" - Visit us at : http://arrowgroup.eu";
 	}
 }
